@@ -1,0 +1,186 @@
+﻿<template:BasePage x:Class="TeamworkClient.View.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TeamworkClient.View"
+      xmlns:template="clr-namespace:TeamworkClient.Templates"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:templateTags="clr-namespace:TeamworkClient.TemplateTags"
+      mc:Ignorable="d" 
+      Background="WhiteSmoke"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HomePage">
+
+    <Page.Resources>
+        <templateTags:DaysLeftDateTimeConverter x:Key="daysLeft"/>
+        <templateTags:LocalDateTimeConverter x:Key="localDate"/>
+        <templateTags:RandomNiceSafeColorConverter x:Key="safeColor"/>
+        <templateTags:TableBackgroundColorConverter x:Key="rowColor"/>
+        <templateTags:ProjectStatusConverter x:Key="prjStatus"/>
+    </Page.Resources>
+
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Margin="20 10" UniformCornerRadius="5" Grid.Column="0" Grid.Row="0" Background="DeepSkyBlue">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Projector"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
+                    <TextBlock Text="Project" HorizontalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <TextBlock x:Name="tbProjectsCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="20 10" UniformCornerRadius="5" Grid.Column="1" Grid.Row="0" Background="#FFFF9999">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="CalendarTask"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
+                    <TextBlock Text="Task" HorizontalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <TextBlock x:Name="tbTasksCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="20 10" UniformCornerRadius="5" Grid.Column="2" Grid.Row="0" Padding="10" Background="LightSeaGreen">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="FlightModeOff"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
+                    <TextBlock Text="Resources" HorizontalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <TextBlock x:Name="tbResourcesCount"  Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="20 10" UniformCornerRadius="5" Grid.Column="3" Grid.Row="0" Background="#FF246991">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="UserOutline"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
+                    <TextBlock Text="Users" HorizontalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <TextBlock x:Name="tbUsersCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </materialDesign:Card>
+
+        
+        <!-- #region Table Header-->
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Name" VerticalAlignment="Center" Grid.Column="0" Margin="10"/>
+            <TextBlock Text="Member" VerticalAlignment="Center" Grid.Column="1" Margin="10"/>
+            <TextBlock Text="Status" VerticalAlignment="Center" Grid.Column="2" Margin="10"/>
+            <TextBlock Text="DeathLine" VerticalAlignment="Center" Grid.Column="3" Margin="10"/>
+        </Grid>
+        <!--#endregion -->
+        
+        <!--#region project table content-->
+        <ListBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" x:Name="lbProjects" Padding="0"
+                 HorizontalContentAlignment="Stretch" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="border" CornerRadius="0" Margin="2" BorderBrush="Black"
+                                        BorderThickness="0,0,0,0.2">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Margin="10,0,0,0" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="#FF46679A" />
+                                        <Setter TargetName="border" Property="Background" Value="white" />
+                                        <Setter TargetName="border" Property="BorderBrush" Value="#FF46679A" />
+                                        <Setter TargetName="border" Property="BorderThickness" Value="4,0,0,0.5" />
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True" />
+                                            <Condition Property="IsSelected" Value="False" />
+                                        </MultiTrigger.Conditions>
+                                        <MultiTrigger.Setters>
+                                            <Setter Property="Foreground" Value="#FF46679A" />
+                                            <Setter TargetName="border" Property="Background" Value="white" />
+                                            <Setter TargetName="border" Property="BorderBrush" Value="#FF46679A" />
+                                            <Setter TargetName="border" Property="BorderThickness" Value="0,0,0,0.5" />
+                                        </MultiTrigger.Setters>
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--#region  project infomation -->
+                        <StackPanel Margin="10" VerticalAlignment="Center" Grid.Column="0">
+                            <TextBlock Text="{Binding Name}" Foreground="Black" FontSize="18"/>
+                            <TextBlock Text="{Binding Description}" Foreground="#666666" FontSize="11"/>
+                        </StackPanel>
+                        <!--#endregion-->
+                        
+                        <!--#region project members-->
+                        <ListBox Margin="0" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Employees}">
+                            
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0" CornerRadius="25" Width="45" Height="45" Padding="0" 
+                                            Background="{Binding Converter={StaticResource safeColor}}">
+                                        <TextBlock Text="{Binding Name}" FontSize="9" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <!--#endregion-->
+                        
+                        <!-- #region project status -->
+                        <materialDesign:PackIcon Width="30" Height="30" Margin="10" Kind="{Binding Status, Converter={StaticResource prjStatus}}" Foreground="PaleVioletRed" VerticalAlignment="Center" Grid.Column="2"/>
+                        <!-- #endregion Project status -->
+                        
+                        <!--#region project end time-->
+                        <StackPanel VerticalAlignment="Center"  Grid.Column="3" Margin="10">
+                            <TextBlock Text="{Binding CreateTime,Converter={StaticResource localDate}}" FontSize="16"/>
+                            <TextBlock Text="{Binding CreateTime,Converter={StaticResource daysLeft}}"/>
+                        </StackPanel>
+                        <!--#endregion-->
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--#endregion-->
+
+    </Grid>
+</template:BasePage>
