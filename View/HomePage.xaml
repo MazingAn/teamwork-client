@@ -37,7 +37,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
                     <materialDesign:PackIcon Kind="Projector"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
-                    <TextBlock Text="Project" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="项目" HorizontalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 <TextBlock x:Name="tbProjectsCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </StackPanel>
@@ -47,7 +47,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
                     <materialDesign:PackIcon Kind="CalendarTask"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
-                    <TextBlock Text="Task" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="任务" HorizontalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 <TextBlock x:Name="tbTasksCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </StackPanel>
@@ -57,7 +57,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
                     <materialDesign:PackIcon Kind="FlightModeOff"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
-                    <TextBlock Text="Resources" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="资源" HorizontalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 <TextBlock x:Name="tbResourcesCount"  Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </StackPanel>
@@ -67,7 +67,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel VerticalAlignment="Center">
                     <materialDesign:PackIcon Kind="UserOutline"  Foreground="White" Width="64" Height="64" VerticalAlignment="Center"/>
-                    <TextBlock Text="Users" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="团队" HorizontalAlignment="Center" Foreground="White"/>
                 </StackPanel>
                 <TextBlock x:Name="tbUsersCount" Margin="10" Foreground="White" FontSize="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </StackPanel>

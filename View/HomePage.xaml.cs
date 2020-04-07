@@ -37,21 +37,11 @@ namespace TeamworkClient.View
         /// </summary>
         private async void LoadProjectData()
         {
-            try
-            {
-                projectController = new ProjectController();
-                string url = NetConfig.UrlJoin("project", "");
-                projects = await projectController.LoadListFromUrlAsync(url);
-                lbProjects.ItemsSource = projects;
-            } catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            projectController = new ProjectController();
+            string url = NetConfig.UrlJoin("project", "");
+            projects = await projectController.LoadListFromUrlAsync(url);
+            lbProjects.ItemsSource = projects;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            await this.AnimateIn();
-        }
     }
 }

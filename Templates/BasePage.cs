@@ -16,18 +16,18 @@ namespace TeamworkClient.Templates
         /// <summary>
         /// 页面第一次加载的时动画
         /// </summary>
-        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
+        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeIn;
 
         /// <summary>
         /// 页面被隐藏时候的动画
         /// </summary>
-        public PageAnimation PageLoadedAnimation { get; set; } = PageAnimation.SlideAndFadeOutToLeft;
+        public PageAnimation PageLoadedAnimation { get; set; } = PageAnimation.SlideAndFadeOut;
 
 
         /// <summary>
         /// 动画执行持续的时间
         /// </summary>
-        public float SlideSeconds { get; set; } = 1.0f;
+        public float SlideSeconds { get; set; } = 0.5f;
 
 
         #endregion
@@ -45,10 +45,9 @@ namespace TeamworkClient.Templates
 
         #endregion
 
-
-        #region 加载/隐藏 动画
+        #region 自动执行加载动画
         /// <summary>
-        /// 当页面被加载的时候，调用对应动画
+        /// 当页面被加载的时候调用加载动画
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,21 +68,45 @@ namespace TeamworkClient.Templates
 
             switch (this.PageLoadAnimation)
             {
-                case PageAnimation.SlideAndFadeInFromRight:
-                    var sb = new Storyboard();
+                case PageAnimation.SlideAndFadeIn:
                     var slideAnimation = new ThicknessAnimation
                     {
-                        Duration = new Duration(TimeSpan.FromSeconds(this.SlideSeconds)),
-                        From = new Thickness(1,1,1,1),
-                        To = new Thickness(28,14,28,14),
+                        Duration = TimeSpan.FromSeconds(this.SlideSeconds),
+                        From = new Thickness(0, -this.WindowHeight, 0, 0),
+                        To = new Thickness(0),
                     };
-                    Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(BasePage.MarginProperty));
-                    sb.Begin(this);
+                    this.BeginAnimation(MarginProperty, slideAnimation);
                     this.Visibility = Visibility.Visible;
                     await Task.Delay((int)(this.SlideSeconds * 1000));
                     break;
             }
         }
 
+        #region 可以被调用的隐藏（退出）动画
+        /// <summary>
+        /// 页面离开动画
+        /// </summary>
+        /// <returns></returns>
+        public async Task AnimateOut()
+        {
+            if (this.PageLoadedAnimation == PageAnimation.None)
+                return;
+
+            switch (this.PageLoadedAnimation)
+            {
+                case PageAnimation.SlideAndFadeOut:
+                    var slideAnimation = new ThicknessAnimation
+                    {
+                        Duration = TimeSpan.FromSeconds(this.SlideSeconds),
+                        From = new Thickness(0),
+                        To = new Thickness(0, this.WindowHeight, 0, 0),
+                    };
+                    this.BeginAnimation(MarginProperty, slideAnimation);
+                    await Task.Delay((int)(this.SlideSeconds * 1000));
+                    this.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
+        #endregion
     }
 }

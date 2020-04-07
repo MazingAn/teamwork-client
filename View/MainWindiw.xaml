@@ -56,7 +56,7 @@
             </ListView>
         </StackPanel>
 
-        <Frame x:Name="fmMainView" Source="HomePage.xaml" Grid.Column="1" Grid.Row="1" />
+        <Frame x:Name="fmMainView" Source="HomePage.xaml" Grid.Column="1" Grid.Row="1"  NavigationUIVisibility="Hidden" />
 
 
     </Grid>

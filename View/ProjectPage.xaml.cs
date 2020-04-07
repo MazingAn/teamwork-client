@@ -50,9 +50,5 @@ namespace TeamworkClient.View
             }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            await this.AnimateIn();
-        }
     }
 }

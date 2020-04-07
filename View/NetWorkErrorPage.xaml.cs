@@ -10,13 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TeamworkClient.Templates;
 
 namespace TeamworkClient.View
 {
     /// <summary>
     /// Interaction logic for NetWorkErrorPage.xaml
     /// </summary>
-    public partial class NetWorkErrorPage : Page
+    public partial class NetWorkErrorPage : BasePage
     {
         public NetWorkErrorPage()
         {
